@@ -39,11 +39,11 @@ end
 def print(students)
 
   # 4. will use a while loop to return student names
-  count = students.count
-  while count > 0 do
-  students.each.with_index(1) do |student, index|
-   puts "#{index} #{student[:name]} (#{student[:cohort]} cohort)"
-  count -= 1
+  count = 0
+  while count < students.count
+    students.each do |student, index|
+   puts "#{student[:name]} (#{student[:cohort]} cohort)"
+   count += 1
   end
   end
 end
