@@ -36,14 +36,15 @@ def input_students
   months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
   while !name.empty? do
-    # using alternative to chomp to remove the last white space
-      # gets.chop will remove the last character
-      # gets.strip will remove all white space at the beginning and end
       student_check = false
       # prevents any missing details in the input
       while student_check == false
+        # using alternative to chomp to remove the last white space
+          # gets.chop will remove the last character
+          # gets.strip will remove all white space at the beginning and end
+          # or first_name = gets[0...-1].capitalize
   puts "Please enter first name: "
-  first_name = gets[0...-1].capitalize
+  first_name = gets.chomp.capitalize
   puts "Please enter surname: "
   surname = gets.chomp.capitalize
   cohort_month = false
