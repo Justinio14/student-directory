@@ -4,9 +4,6 @@ def input_students
   students = []
   student_check = false
   puts "Type any key and then return to submit more student details or return to exit"
-  # using alternative to chomp to remove the last white space
-    # gets.chop will remove the last character
-    # gets.strip will remove all white space at the beginning and end
 
   name = gets.chomp
 
@@ -27,6 +24,7 @@ def input_students
    while  cohort_month == false
   puts "Please enter cohort: "
   cohort = gets.chomp.capitalize
+    # check to see if valid month is entered
     if !months.include? cohort
       puts "Invalid entry please re-enter cohort"
     else
@@ -39,19 +37,19 @@ def input_students
   country_of_birth = gets.chomp.capitalize
   print "\nPlease enter height in inches: "
   height = gets.chomp.capitalize
+
+    # check to see if all fields have been populated
     if first_name == "" || surname == "" || hobbies == "" || country_of_birth == "" || height == ""
-      puts "some student details are missing please try again" 
+      puts "some student details are missing please try again"
     else
       student_check = true
     end
     end
 
-  #add the student to the array
     #add the student to the array
-    #students << {first_name: first_name, surname: surname, cohort: cohort} #, hobbies: hobbies, country_of_birth: country_of_birth, heighth: height}
     students << {first_name: first_name, surname: surname, cohort: cohort, hobbies: hobbies, country_of_birth: country_of_birth, heighth: height}
-  # checking to see if students are singular or plural
 
+  # checking to see if students are singular or plural
   if students.count == 1
       plural = "student"
     else
