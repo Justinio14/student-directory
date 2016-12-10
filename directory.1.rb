@@ -1,39 +1,44 @@
-def interactive_menu
-  students = []
+@students = [] # an empty array accessible to all methods
 
+def interactive_menu
   loop do
-    # 1. print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit" # 9 because we'll be adding more items
-    # 2. read the input the user has asked
-    selection = gets.chomp
-    # 3. do what the user has asked
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header
-      print(students)
-      print_footer(students)
-    when "9"
-      exit # this will cause the program to terminate
-    else
-      puts "I don't know what you meant, try again"
-    end
+    print_menu
+    process(gets.chomp)
   end
 end
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit" # 9 because we'll be adding more items
+end
 
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit # this will cause the program to terminate
+  else
+    puts "I don't know what you meant, try again"
+  end
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
 
 def input_students
-  students = []
   student_check = false
   puts "Type any key and then return to submit student details or return to exit"
 
   name = gets.chomp
 
-  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+  @months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
   while !name.empty? do
       student_check = false
@@ -52,7 +57,7 @@ def input_students
   puts "Please enter cohort: "
   cohort = gets.chomp.capitalize
     # check to see if valid month is entered
-    if !months.include? cohort
+    if !@months.include? cohort
       puts "Invalid entry please re-enter cohort"
     else
       cohort_month = true
@@ -74,28 +79,25 @@ def input_students
     end
 
     #add the student to the array
-    students << {first_name: first_name, surname: surname, cohort: cohort, hobbies: hobbies, country_of_birth: country_of_birth, heighth: height}
+    @students << {first_name: first_name, surname: surname, cohort: cohort, hobbies: hobbies, country_of_birth: country_of_birth, heighth: height}
 
   # checking to see if students are singular or plural
-  if students.count == 1
+  if @students.count == 1
       plural = "student"
     else
       plural = "students"
   end
 
-    puts "Now we have #{students.count} #{plural}".center(60)
+    puts "Now we have #{@students.count} #{plural}".center(60)
     puts "Type any key and then return to submit student details or enter for main menu"
   name = gets.chomp
   end
-    students
-
 end
 
-def print(students)
+def print()
   # adding months to use the index as an ordering mechanism for sorting
-  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
   # creating a new hash that sorts and groups students by months
-  student_sort = students.sort_by { |student| months.index student[:cohort]} #sort_by { |x| x[:cohort] }
+  student_sort = @students.sort_by { |student| @months.index student[:cohort]} #sort_by { |x| x[:cohort] }
   # puts student details
   student_sort.each.with_index(1) do |x, index|
   puts "#{index} #{x[:first_name]} #{x[:surname]} (#{x[:cohort]} cohort)".center(60)
@@ -107,20 +109,20 @@ def print_header
   puts "______________".center(60)
 end
 
-def print_footer(students)
+def print_footer()
   # checking to see if students are singular or plural
-    if students.count == 0
+    if @students.count == 0
       exit
-    elsif students.count == 1
+    elsif @students.count == 1
       plural = "student"
     else
       plural = "students"
     end
-      puts "Overall, we have #{students.count} great #{plural}".center(60)
+      puts "Overall, we have #{@students.count} great #{plural}".center(60)
 end
 # nothing will happen until we call the methods
 interactive_menu
 input_students
 print_header
-print(students)
-print_footer(students)
+print_students_list
+print_footer

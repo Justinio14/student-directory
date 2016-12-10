@@ -7,7 +7,7 @@ def input_students
 
   name = gets.chomp
 
-  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+  @months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
   while !name.empty? do
     # using alternative to chomp to remove the last white space
@@ -25,7 +25,7 @@ def input_students
   puts "Please enter cohort: "
   cohort = gets.chomp.capitalize
     # check to see if valid month is entered
-    if !months.include? cohort
+    if !@months.include? cohort
       puts "Invalid entry please re-enter cohort"
     else
       cohort_month = true
@@ -66,9 +66,9 @@ end
 
 def print_body(students)
   # adding months to use the index as an ordering mechanism for sorting
-  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+  # months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
   # creating a new hash that sorts and groups students by months
-  student_sort = students.sort_by { |student| months.index student[:cohort]} #sort_by { |x| x[:cohort] }
+  student_sort = students.sort_by { |student| @months.index student[:cohort]} #sort_by { |x| x[:cohort] }
   # puts student details
   student_sort.each.with_index(1) do |x, index|
   puts "#{index} #{x[:first_name]} #{x[:surname]} (#{x[:cohort]} cohort)".center(60)
